@@ -19,17 +19,17 @@ app.use(express.json());
 app.use(cors());
 
 //routes
+app.use("/api/v1/user", require("./routes/userRoute"));
+app.use("/api/v1/admin", require("./routes/adminRoute"));
+app.use("/api/v1/doctor", require("./routes/doctorRoute"));
 
 //port
-const PORT = 8080 || process.env.PORT;
+const port = process.env.PORT || 8080;
 
-app.get("/", (req, res) => {
-	res.status(200).send({
-		message: "Server Up",
-	});
-});
-
-//listen server
-app.listen(PORT, () => {
-	console.log(`Server running on port ${PORT}`);
+//listen port
+app.listen(port, () => {
+	console.log(
+		`Server Running in ${process.env.NODE_MODE} Mode on port ${process.env.PORT}`
+			.bgCyan.white
+	);
 });
