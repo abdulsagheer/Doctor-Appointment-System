@@ -3,16 +3,22 @@ import "../styles/RegiserStyles.css";
 import { Form, Input, message } from "antd";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../redux/features/alertSlice";
+
 const Register = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	//form handler
 	const onfinishHandler = async (values) => {
 		try {
+			dispatch(showLoading());
 			const res = await axios.post(
 				`${import.meta.env.VITE_API_URL}/api/v1/user/register`,
 				values
 			);
+			dispatch(hideLoading());
 			if (res.data.success) {
 				message.success("Register Successfully!");
 				navigate("/login");
@@ -20,6 +26,7 @@ const Register = () => {
 				message.error(res.data.message);
 			}
 		} catch (error) {
+			dispatch(hideLoading());
 			console.log(error);
 			message.error("Something Went Wrong");
 		}
@@ -30,7 +37,7 @@ const Register = () => {
 				<Form
 					layout="vertical"
 					onFinish={onfinishHandler}
-					className="register-form  p-5">
+					className="register-form p-5">
 					<h3 className="text-center">Register From</h3>
 					<Form.Item label="Name" name="name">
 						<Input type="text" required />
@@ -44,7 +51,7 @@ const Register = () => {
 					<Link to="/login" className="m-2">
 						Already user login here
 					</Link>
-					<div className="mt-4">
+					<div className="text-center mt-4">
 						<button className="btn btn-primary" type="submit">
 							Register
 						</button>
