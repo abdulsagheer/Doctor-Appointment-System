@@ -73,15 +73,16 @@ const Notification = () => {
 							Mark All Read
 						</h4>
 					</div>
-					{user?.notifcation.map((notificationMgs) => (
-						<div className="card" style={{ cursor: "pointer" }}>
-							<div
-								className="card-text"
-								onClick={() => navigate(notificationMgs.onClickPath)}>
-								{notificationMgs.message}
+					{user &&
+						user?.notification?.map((notificationMgs) => (
+							<div className="card" style={{ cursor: "pointer" }}>
+								<div
+									className="card-text"
+									onClick={() => navigate(notificationMgs.onClickPath)}>
+									{notificationMgs.message}
+								</div>
 							</div>
-						</div>
-					))}
+						))}
 				</Tabs.TabPane>
 				<Tabs.TabPane tab="Read" key={1}>
 					<div className="d-flex justify-content-end">
@@ -92,15 +93,16 @@ const Notification = () => {
 							Delete All Read
 						</h4>
 					</div>
-					{user?.seennotification.map((notificationMgs) => (
-						<div className="card" style={{ cursor: "pointer" }}>
-							<div
-								className="card-text"
-								onClick={() => navigate(notificationMgs.onClickPath)}>
-								{notificationMgs.message}
+					{user &&
+						user?.seennotification?.map((notificationMgs) => (
+							<div className="card" style={{ cursor: "pointer" }}>
+								<div
+									className="card-text"
+									onClick={() => navigate(notificationMgs.onClickPath)}>
+									{notificationMgs.message}
+								</div>
 							</div>
-						</div>
-					))}
+						))}
 				</Tabs.TabPane>
 			</Tabs>
 		</Layout>
